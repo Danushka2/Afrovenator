@@ -2,6 +2,7 @@ const express = require('express');
 const app = express();
 const connectDB = require('./config/db');
 const indexRouter = require('./routes/index');
+const productRouter = require('./routes/products');
 const dotenv = require('dotenv');
 
 dotenv.config();
@@ -46,6 +47,7 @@ const onListening = () => {
 const port = normalizePort(process.env.PORT || '5000');
 
 app.use('/', indexRouter);
+app.use('/', productRouter);
 
 app.on('error', onError);
 app.on('listening', onListening);
