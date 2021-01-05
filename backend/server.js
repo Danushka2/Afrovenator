@@ -1,9 +1,11 @@
 const express = require('express');
 const app = express();
+const connectDB = require('./config/db');
 const indexRouter = require('./routes/index');
 const dotenv = require('dotenv');
 
-dotenv.config()
+dotenv.config();
+connectDB();
 
 const normalizePort = (val) => {
   var port = parseInt(val, 10);
