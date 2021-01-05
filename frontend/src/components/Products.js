@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
-import { Card } from 'react-bootstrap';
+import { Link, Redirect } from 'react-router-dom';
+import { Card, Row, Col } from 'react-bootstrap';
+import axios from 'axios';
 
 export class Products extends Component {
   render() {

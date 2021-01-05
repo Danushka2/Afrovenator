@@ -13,7 +13,6 @@ export default class HomeLayout extends Component {
       .then(res => {
         const rProducts = res.data;
         this.setState({products: rProducts});
-        console.log(rProducts);
       })
   }
 

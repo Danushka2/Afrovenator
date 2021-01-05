@@ -14,6 +14,11 @@ export default class Header extends Component {
             <Navbar.Toggle aria-controls='basic-navbar-nav' />
             <Navbar.Collapse id='basic-navbar-nav'>
               <Nav className='ml-auto'>
+                <LinkContainer to='/new/product'>
+                  <Nav.Link>
+                    <i className='fas fa-shopping-cart'></i> Add Product
+                  </Nav.Link>
+                </LinkContainer>
                 <LinkContainer to='/login'>
                   <Nav.Link>
                     <i className='fas fa-user'></i> Sign In

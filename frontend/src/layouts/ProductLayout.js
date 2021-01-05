@@ -1,32 +1,47 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import { Row, Col, Image, ListGroup, Card, Button,  } from 'react-bootstrap';
+import { Row, Col, Image, ListGroup, Card, Button } from 'react-bootstrap';
 import axios from 'axios';
-
 
 export class ProductLayout extends Component {
   state = {
-    product: []
-  }
+    product: [],
+    prodID: ''
+  };
 
   componentDidMount() {
-    axios.get(`/api/products/${this.props.match.params.id}`)
-      .then(res => {
-        const rProduct = res.data;
-        this.setState({product: rProduct});
-      })
+    axios.get(`/api/products/${this.props.match.params.id}`).then((res) => {
+      const rProduct = res.data;
+      this.setState({ product: rProduct });
+    });
   }
-  
+
+   
   render() {
+    const prodId = this.state.product._id;
+    function deleteProduct() {
+      try {
+        axios.delete(`api/products/${prodId}`).then((res) => {
+          console.log(res);
+        });
+      } catch (error) {
+        console.log(error);
+      }
+    }
 
     return (
       <>
-      <Link className='btn btn-light my-3' to='/'>
-      <i class="fas fa-backward"></i> Go Back
-      </Link>
+        <Link className='btn btn-light my-3' to='/'>
+          <i className='fas fa-backward'></i> Go Back
+        </Link>
         <Row>
           <Col md={6}>
-            <Image src="/images/sample.jpg" style={imgStyle} alt="placeholder image" fluid />
+            <Image
+              src='/images/sample.jpg'
+              style={imgStyle}
+              alt='placeholder image'
+              fluid
+            />
           </Col>
           <Col md={3}>
             <ListGroup variant='flush'>
@@ -35,6 +50,14 @@ export class ProductLayout extends Component {
               </ListGroup.Item>
               <ListGroup.Item>
                 Description: {this.state.product.description}
+              </ListGroup.Item>
+              <ListGroup.Item>
+                <Link to={`/edit/product/${this.state.product._id}`}>
+                  <i className='mt-4 mx-2 far fa-edit'></i>
+                </Link>
+                <Link to={'/'} onClick={deleteProduct}>
+                  <i className='far fa-trash-alt' onClick={deleteProduct}></i>
+                </Link>
               </ListGroup.Item>
             </ListGroup>
           </Col>
@@ -54,19 +77,21 @@ export class ProductLayout extends Component {
                   <Row>
                     <Col>Status:</Col>
                     <Col>
-                      {this.state.product.quantity > 0 ? 'In Stock' : 'Out Of Stock'}
+                      {this.state.product.quantity > 0
+                        ? 'In Stock'
+                        : 'Out Of Stock'}
                     </Col>
                   </Row>
                 </ListGroup.Item>
                 <ListGroup.Item>
-                    <Button
-                      className='btn-block'
-                      type='button'
-                      disabled={this.state.product.quantity === 0}
-                    >
-                      Add To Cart
-                    </Button>
-                  </ListGroup.Item>
+                  <Button
+                    className='btn-block'
+                    type='button'
+                    disabled={this.state.product.quantity === 0}
+                  >
+                    Add To Cart
+                  </Button>
+                </ListGroup.Item>
               </ListGroup>
             </Card>
           </Col>
@@ -76,9 +101,8 @@ export class ProductLayout extends Component {
   }
 }
 
-
 const imgStyle = {
-  border: '1px solid #E5E5E5'
-}
+  border: '1px solid #E5E5E5',
+};
 
 export default ProductLayout;
