@@ -4,11 +4,7 @@ const Product = require('../models/productModel');
 var bodyParser = require('body-parser');
 
 const app = express();
-// create application/json parser
 var jsonParser = bodyParser.json();
-
-// create application/x-www-form-urlencoded parser
-// var urlencodedParser = bodyParser.urlencoded({ extended: false })
 
 router.get('/api/products', async function (req, res) {
   try {

@@ -1,8 +1,39 @@
 import React, { Component } from 'react';
 import { LinkContainer } from 'react-router-bootstrap';
-import { Navbar, Nav, Container } from 'react-bootstrap';
+import { Navbar, Nav, Container, NavDropdown } from 'react-bootstrap';
 
 export default class Header extends Component {
+  state = {
+    products: [],
+    user: '',
+    isLogged: false,
+    loginLink: '/login',
+    loginText: 'LogIn',
+  };
+
+  componentDidMount() {
+    const user = localStorage.getItem('user');
+    if (user) {
+      this.setState({
+        user: user,
+        isLogged: true,
+        loginLink: '/logout',
+        loginText: 'Logout',
+      });
+      console.log(user);
+    }
+  }
+
+  logoutHandler = () => {
+    console.log("clicked");
+    if(this.state.isLogged){
+      localStorage.clear();
+      console.log("no user");
+    }
+    let tempBool = !this.state.isLogged;
+    this.setState({isLogged: tempBool});
+  }
+
   render() {
     return (
       <header>
@@ -14,16 +45,35 @@ export default class Header extends Component {
             <Navbar.Toggle aria-controls='basic-navbar-nav' />
             <Navbar.Collapse id='basic-navbar-nav'>
               <Nav className='ml-auto'>
-                <LinkContainer to='/new/product'>
-                  <Nav.Link>
-                    <i className='fas fa-shopping-cart'></i> Add Product
-                  </Nav.Link>
-                </LinkContainer>
-                <LinkContainer to='/login'>
-                  <Nav.Link>
-                    <i className='fas fa-user'></i> Sign In
-                  </Nav.Link>
-                </LinkContainer>
+                {this.state.isLogged ? (
+                  <>
+                    <LinkContainer to='/new/product'>
+                      <Nav.Link>
+                        <i className='fas fa-shopping-cart'></i> Add Product
+                      </Nav.Link>
+                    </LinkContainer>
+
+                    <NavDropdown title={this.state.user} id='username'>
+                      <LinkContainer to='/edit/user'>
+                        <NavDropdown.Item>Edit Profile</NavDropdown.Item>
+                      </LinkContainer>
+                      <NavDropdown.Item onClick={this.logoutHandler}>Logout</NavDropdown.Item>
+                    </NavDropdown>
+                  </>
+                ) : (
+                  <>
+                    <LinkContainer to='/signup'>
+                      <Nav.Link>
+                        <i className='fas fa-user'></i> Sign Up
+                      </Nav.Link>
+                    </LinkContainer>
+                    <LinkContainer to='/login'>
+                      <Nav.Link>
+                        <i className='fas fa-sign-in-alt'></i> Login
+                      </Nav.Link>
+                    </LinkContainer>
+                  </>
+                )}
               </Nav>
             </Navbar.Collapse>
           </Container>

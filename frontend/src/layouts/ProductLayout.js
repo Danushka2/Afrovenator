@@ -6,7 +6,8 @@ import axios from 'axios';
 export class ProductLayout extends Component {
   state = {
     product: [],
-    prodID: ''
+    prodID: '',
+    isLogged: false,
   };
 
   componentDidMount() {
@@ -14,9 +15,15 @@ export class ProductLayout extends Component {
       const rProduct = res.data;
       this.setState({ product: rProduct });
     });
+    const user = localStorage.getItem('user');
+    if (user) {
+      this.setState({
+        isLogged: true,
+      });
+      console.log(user);
+    }
   }
 
-   
   render() {
     const prodId = this.state.product._id;
     function deleteProduct() {

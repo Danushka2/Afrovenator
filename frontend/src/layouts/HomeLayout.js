@@ -5,7 +5,8 @@ import axios from 'axios';
 
 export default class HomeLayout extends Component {
   state = {
-    products: []
+    products: [],
+    user: ''
   }
 
   componentDidMount() {
