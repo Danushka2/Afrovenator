@@ -15,6 +15,19 @@ export class ProductAddLayout extends Component {
     };
   }
 
+
+  componentDidMount() {
+    const user = localStorage.getItem('user');
+
+    axios.get(`/api/users/${user}`).then((res) => {
+      const rUser = res.data;
+      this.setState({
+        user_id: rUser._id
+      });
+    });
+    
+  }
+
   onChange = (e) => {
     const state = this.state;
     state[e.target.name] = e.target.value;
@@ -84,11 +97,12 @@ export class ProductAddLayout extends Component {
             <Form.Group controlId='user_id'>
               <Form.Label>User ID</Form.Label>
               <Form.Control
-                type='number'
+                type='text'
                 placeholder='Enter User ID'
                 name='user_id'
                 value={user_id}
                 onChange={this.onChange}
+                readOnly
               ></Form.Control>
             </Form.Group>
 

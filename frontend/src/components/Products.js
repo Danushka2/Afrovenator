@@ -6,6 +6,9 @@ export class Products extends Component {
   render() {
     return (
       <Card className='my-3 p-3 rounded'>
+        <Link>
+          <Card.Img src='/images/sample.jpg' variant='top' />
+        </Link>
         <Card.Body>
           <Link to={`/product/${this.props.product._id}`}>
             <Card.Title as='div'>

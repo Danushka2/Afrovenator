@@ -16,9 +16,9 @@ const productSchema = mongoose.Schema(
       default: 0,
     },
     user_id: {
-      type: Number,
+      type: mongoose.Schema.Types.ObjectId,
       required: true,
-      default: 0,
+      ref: 'User',
     }
   },
   {

@@ -17,14 +17,22 @@ export class ProductEditLayout extends Component {
   }
 
   componentDidMount() {
+    const user = localStorage.getItem('user');
+
+    axios.get(`/api/users/${user}`).then((res) => {
+      const rUser = res.data;
+      this.setState({
+        user_id: rUser._id
+      });
+    });
+    
     axios.get(`/api/products/${this.props.match.params.id}`).then((res) => {
       const rProduct = res.data;
       this.setState({
         id: rProduct._id,
         name: rProduct.name,
         description: rProduct.description,
-        quantity: rProduct.quantity,
-        user_id: rProduct.user_id,
+        quantity: rProduct.quantity
       });
     });
   }
@@ -98,10 +106,11 @@ export class ProductEditLayout extends Component {
             <Form.Group controlId='user_id'>
               <Form.Label>User ID</Form.Label>
               <Form.Control
-                type='number'
+                type='text'
                 name='user_id'
                 value={user_id}
                 onChange={this.onChange}
+                readOnly
               ></Form.Control>
             </Form.Group>
 
