@@ -9,6 +9,7 @@ export default class HomeLayout extends Component {
     user: ''
   }
 
+  //get the products from the database
   componentDidMount() {
     axios.get(`/api/products`)
       .then(res => {

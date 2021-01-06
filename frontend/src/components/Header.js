@@ -11,6 +11,7 @@ export default class Header extends Component {
     loginText: 'LogIn',
   };
 
+  //getting the user mail and update the state if it exists
   componentDidMount() {
     const user = localStorage.getItem('user');
     if (user) {
@@ -24,11 +25,10 @@ export default class Header extends Component {
     }
   }
 
+  //removed the user from the local storage
   logoutHandler = () => {
-    console.log("clicked");
     if(this.state.isLogged){
       localStorage.clear();
-      console.log("no user");
     }
     let tempBool = !this.state.isLogged;
     this.setState({isLogged: tempBool});

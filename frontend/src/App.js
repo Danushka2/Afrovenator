@@ -9,7 +9,6 @@ import ProductEditLayout from './layouts/ProductEditLayout';
 import UserEditLayout from './layouts/UserEditLayout';
 import RegistationLayout from './layouts/RegistationLayout';
 import LoginLayout from './layouts/LoginLayout';
-import './App.css';
 
 function App() {
   return (
