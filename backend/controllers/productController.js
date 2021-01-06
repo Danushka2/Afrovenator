@@ -70,7 +70,7 @@ const updateProduct = async (req, res) => {
 };
 
 // @desc    Delete a Product
-// @route   PUT /api/products/
+// @route   DELETE /api/products/
 const deleteProduct = async (req, res) => {
   try {
     const product = await Product.findByIdAndDelete(

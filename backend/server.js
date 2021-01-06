@@ -48,8 +48,8 @@ const onListening = () => {
 const port = normalizePort(process.env.PORT || '5000');
 
 app.use('/', indexRouter);
-app.use('/', productRouter);
-app.use('/', userRouter);
+app.use('/api/products', productRouter);
+app.use('/api/users', userRouter);
 
 app.on('error', onError);
 app.on('listening', onListening);
